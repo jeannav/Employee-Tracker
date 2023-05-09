@@ -1,6 +1,6 @@
 const inquirer = require('inquirer');
 const mysql = require('mysql2');
-const cTable = require('console.table');
+//const cTable = require('console.table');
 
 const db = mysql.createConnection({
   host: "localhost",
@@ -91,7 +91,7 @@ function addDepartment() {
         message: 'What is the name of the department?'
       }
     ]).then(response => {
-      const query = `INSERT INTO department SET ?`
+      const query = `INSERT INTO departments SET ?`
       db.query(
         query, {
         name: response.departmentName
@@ -158,7 +158,7 @@ function addEmployee() {
         message: "What is the employee's manager id?"
       },
     ]).then(response => {
-      const query = `INSERT INTO employee SET ?`
+      const query = `INSERT INTO employees SET ?`
       db.query(
         query, {
         first_name: response.firstName,
@@ -173,7 +173,7 @@ function addEmployee() {
 }
 
 function updateEmployee() {
-  const employeeSql = `SELECT * FROM employee`;
+  const employeeSql = `SELECT * FROM employees`;
   db.query(employeeSql, (err, data) => {
     if (err) throw err;
 
@@ -212,10 +212,10 @@ function updateEmployee() {
               params.push(role);
 
               let employee = params[0]
-              params[0] = roles
-              params[1] = employees
+              params[0] = role
+              params[1] = employee
 
-              const sql = `UPDATE employee SET role_id = ? WHERE id = ?`;
+              const sql = `UPDATE employees SET role_id = ? WHERE id = ?`;
 
               db.query(sql, params, (err, result) => {
                 if (err) throw err;
