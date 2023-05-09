@@ -53,7 +53,7 @@ function menu() {
 }
 
 function allDepartments() {
-  const query = `SELECT * FROM department`;
+  const query = `SELECT * FROM departments`;
   db.query(query,
     function (err, res) {
       if (err) throw err
@@ -73,7 +73,7 @@ function allRoles() {
 }
 
 function allEmployees() {
-  const query = `SELECT * FROM employee`;
+  const query = `SELECT * FROM employees`;
   db.query(query,
     function (err, res) {
       if (err) throw err
@@ -94,7 +94,7 @@ function addDepartment() {
       const query = `INSERT INTO department SET ?`
       db.query(
         query, {
-        department_name: response.departmentName
+        name: response.departmentName
       }
       )
       console.log(`Added ${response.departmentName} to the database`);
@@ -212,8 +212,8 @@ function updateEmployee() {
               params.push(role);
 
               let employee = params[0]
-              params[0] = role
-              params[1] = employee
+              params[0] = roles
+              params[1] = employees
 
               const sql = `UPDATE employee SET role_id = ? WHERE id = ?`;
 
